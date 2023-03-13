@@ -1,0 +1,72 @@
+html,
+body {
+  margin: 0;
+  font-family: Inter, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #8b7c9c;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+button {
+  cursor: pointer;
+  color: #8b7c9c;
+  font-weight: bold;
+  margin-top: 16px;
+  padding: 8px;
+  border: 0;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #b2e2e4c5;
+}
+
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 64px;
+}
+
+.dataContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 600px;
+}
+
+.header {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.bio, .jokeCount {
+  text-align: center;
+  color: rgb(255, 255, 255);
+  margin-top: 16px;
+}
+.inputBox {
+    font-family: Inter, sans-serif;
+    -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #8b7c9c;
+    margin-top: 16px;
+    padding: 8px;
+    border: 0;
+    border-radius: 5px;
+}
+
+img {
+    margin-top: 16px;
+    padding: 8px;
+    border: 0;
+    border-radius: 5px;
+}
+
+
+
+
