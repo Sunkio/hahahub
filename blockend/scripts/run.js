@@ -1,24 +1,26 @@
 const main = async () => {
-  const [owner, randomPerson] = await hre.ethers.getSigners();
   const jokeContractFactory = await hre.ethers.getContractFactory("HaHaHub");
   const jokeContract = await jokeContractFactory.deploy();
   await jokeContract.deployed();
+  console.log("Contract address: ", jokeContract.address);
 
-  console.log("Contract deployed to:", jokeContract.address);
-  console.log("Contract deployed by:", owner.address);
+  let jokeCount;
+  jokeCount = await jokeContract.getJokeCount();
+  console.log(jokeCount.toNumber());
 
-  await jokeContract.getJokeCount();
+  /**
+   * Let's send a few waves!
+   */
+  let jokeTxn = await jokeContract.createJoke("A hilarious joke!");
+  await jokeTxn.wait(); // Wait for the transaction to be mined
 
-  const jokeTxn1 = await jokeContract.createJoke();
-  await jokeTxn1.wait();
+  const [_, randomPerson] = await hre.ethers.getSigners();
+  jokeTxn = await jokeContract.connect(randomPerson).createJoke("An even funnier joke!");
+  await jokeTxn.wait(); // Wait for the transaction to be mined
 
-  await jokeContract.getJokeCount();
-
-  const jokeTxn2 = await jokeContract.connect(randomPerson).createJoke();
-  await jokeTxn2.wait();
-
-  await jokeContract.getJokeCount();
-};
+  let allJokes = await jokeContract.getJokes();
+  console.log(allJokes);
+}
 
 const runMain = async () => {
   try {
