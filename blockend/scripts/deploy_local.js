@@ -9,7 +9,8 @@ const main = async () => {
   const jokeContract = await jokeContractFactory.deploy();
   await jokeContract.deployed();
 
-  console.log("HaHaHub address: ", jokeContract.address); };
+  console.log("HaHaHub address: ", jokeContract.address);
+};
 
 const runMain = async () => {
   try {

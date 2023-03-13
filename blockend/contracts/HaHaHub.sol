@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: UNLICENSED
 
-pragma solidity ^0.8.17;
+pragma solidity ^0.8.4;
 
 import "hardhat/console.sol";
 
-contract JokeHub {
+contract HaHaHub {
     uint256 jokeCount = 0;
 
     constructor() {
-        console.log("JokeHub contract deployed");
+        console.log("HaHaHub contract deployed");
     }
 
     function createJoke() public {

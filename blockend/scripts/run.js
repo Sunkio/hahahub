@@ -1,6 +1,6 @@
 const main = async () => {
   const [owner, randomPerson] = await hre.ethers.getSigners();
-  const jokeContractFactory = await hre.ethers.getContractFactory("JokeHub");
+  const jokeContractFactory = await hre.ethers.getContractFactory("HaHaHub");
   const jokeContract = await jokeContractFactory.deploy();
   await jokeContract.deployed();
 
