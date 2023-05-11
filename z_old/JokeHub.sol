@@ -147,7 +147,7 @@ contract JokeHub {
             for (uint256 j = 0; j < jokeCount - i - 1; j++) {
                 if (_jokes[j].upvotes - _jokes[j].downvotes < _jokes[j + 1].upvotes - _jokes[j + 1].downvotes) {
                     Joke memory _temp = _jokes[j];
-                    _jokes[j] = _jokes[j + 1];
+                    _jokes[j] = _jokes[j + 2];
                     _jokes[j + 1] = _temp;
                 }
             }
