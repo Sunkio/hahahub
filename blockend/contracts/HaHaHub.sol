@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.4;
 
@@ -53,29 +54,27 @@ contract JokeHub {
         require(bytes(_content).length > 0, "Joke must have content");
 
         jokeCount++;
-        jokes[jokeCount] = Joke(jokeCount, _content, 0, 0, msg.sender);
+        jokes[jokeCount] = Joke(jokeCount, _content, block.timestamp, 0, 0, msg.sender);
 
-        emit JokeCreated(jokeCount, _content, 0, 0, msg.sender);
+        emit JokeCreated(jokeCount, _content, block.timestamp, 0, 0, msg.sender);
     }
 
     function upvoteJoke(uint256 _id) public {
         require(_id > 0 && _id <= jokeCount, "Joke must exist");
 
-        Joke memory _joke = jokes[_id];
+        Joke storage _joke = jokes[_id];
         _joke.upvotes++;
-        jokes[_id] = _joke;
 
-        emit JokeUpvoted(_joke.id, _joke.content, _joke.upvotes, _joke.downvotes, _joke.author);
+        emit JokeUpvoted(_joke.id, _joke.content, _joke.timestamp, _joke.upvotes, _joke.downvotes, _joke.author);
     }
 
     function downvoteJoke(uint256 _id) public {
         require(_id > 0 && _id <= jokeCount, "Joke must exist");
 
-        Joke memory _joke = jokes[_id];
+        Joke storage _joke = jokes[_id];
         _joke.downvotes++;
-        jokes[_id] = _joke;
 
-        emit JokeDownvoted(_joke.id, _joke.content, _joke.upvotes, _joke.downvotes, _joke.author);
+        emit JokeDownvoted(_joke.id, _joke.content, _joke.timestamp, _joke.upvotes, _joke.downvotes, _joke.author);
     }
 
     function getJoke(uint256 _id) public view returns (uint256, string memory, uint256, uint256, address) {
@@ -96,12 +95,19 @@ contract JokeHub {
     }
 
     function getJokesByAuthor(address _author) public view returns (Joke[] memory) {
-        Joke[] memory _jokes = new Joke[](jokeCount);
         uint256 _jokeCount = 0;
         for (uint256 i = 0; i < jokeCount; i++) {
             if (jokes[i + 1].author == _author) {
-                _jokes[_jokeCount] = jokes[i + 1];
                 _jokeCount++;
+            }
+        }
+
+        Joke[] memory _jokes = new Joke[](_jokeCount);
+        uint256 index = 0;
+        for (uint256 i = 0; i < jokeCount; i++) {
+            if (jokes[i + 1].author == _author) {
+                _jokes[index] = jokes[i + 1];
+                index++;
             }
         }
         return _jokes;
